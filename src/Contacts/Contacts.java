@@ -24,6 +24,22 @@ public class Contacts {
         }
     }
 
+    //Search method
+    public static void searchFile(Path filePath) throws IOException {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please enter the name you would like to search for");
+        String input = sc.nextLine();
+
+        System.out.println();
+        List<String> fileContents = Files.readAllLines(filePath);
+        for (int i = 0; i < fileContents.size(); i++) {
+            if (fileContents.get(i).contains(input)){
+                System.out.printf("%d %s", i + 1, fileContents.get(i));
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         //********SCANNER**********
         Scanner sc = new Scanner(System.in);
@@ -102,6 +118,7 @@ public class Contacts {
                     Files.write(contactPath, newContact, StandardOpenOption.APPEND);
                     break;
                 case 3: //SEARCH
+                    searchFile(filepathtoList);
                     break;
                 case 4: //DELETE
 
