@@ -1,4 +1,5 @@
 package Contacts;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,19 +12,21 @@ import java.util.Scanner;
 
 public class Contacts {
 
+
     //print file method
     public static void printFile(Path filePath) throws IOException {
-
         System.out.println();
         List<String> fileContents = Files.readAllLines(filePath);
         for (int i = 0; i < fileContents.size(); i++) {
-            System.out.printf("%d %s", i + 1, fileContents.get(i));
-            System.out.println();
+            System.out.printf("\n%d %s", i + 1, fileContents.get(i)); //each line
+
+//            System.out.println();
         }
     }
 
-    public static void main(String[] args) throws IOException{
-        System.out.println();
+    public static void main(String[] args) throws IOException {
+        //********SCANNER**********
+        Scanner sc = new Scanner(System.in);
 
         System.out.println(
                 "What would you like to do?\n" +
@@ -45,7 +48,7 @@ public class Contacts {
 
         //System.out.println("filepathtoList = " + filepathtoList);
         //System.out.println("Files.exists() = " + Files.exists(filepathtoList));
-        printFile(filepathtoList);
+//        printFile(filepathtoList);
 
         //Setting up file path
 
@@ -59,12 +62,12 @@ public class Contacts {
 
         //System.out.println("dataFile = " + dataFile);
 
-        if(Files.notExists(dataDirectory)) {
+        if (Files.notExists(dataDirectory)) {
 
             Files.createDirectories(dataDirectory);
         }
 
-        if (Files.notExists(dataFile)){
+        if (Files.notExists(dataFile)) {
 
             Files.createFile(dataFile);
         }
@@ -74,10 +77,40 @@ public class Contacts {
 
         //System.out.println("contactPath = " + contactPath);
 
-        List<String> newContact = Arrays.asList("###-###-####");
-        //System.out.println("newContact = " + newContact);
+//        List<String> newContact = Arrays.asList("###-###-####");
+//        //System.out.println("newContact = " + newContact);
+//
+//        Files.write(contactPath, newContact, StandardOpenOption.APPEND);
 
-        Files.write(contactPath, newContact, StandardOpenOption.APPEND);
+
+        //**********GET INPUT***********
+
+        Scanner inputScanner = new Scanner(System.in);
+        int input;
+        do {
+            input = inputScanner.nextInt();
+            switch (input) { //DISPLAY
+                case 1:
+                    printFile(filepathtoList);
+                    break;
+                case 2: //ADD
+                    System.out.println("[Name Number]");
+                    String name = sc.next();
+                    String newNumber = sc.next();
+
+                    List<String> newContact = Arrays.asList(name + " | " + newNumber);
+                    Files.write(contactPath, newContact, StandardOpenOption.APPEND);
+                    break;
+                case 3: //SEARCH
+                    break;
+                case 4: //DELETE
+
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    break;
+            }
+        } while (input != 5);
 
     }
 }
