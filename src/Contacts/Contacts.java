@@ -19,7 +19,7 @@ public class Contacts {
         System.out.println();
         List<String> fileContents = Files.readAllLines(filePath);
         for (int i = 0; i < fileContents.size(); i++) {
-            System.out.printf("\n%d %s", i + 1, fileContents.get(i)); //each line
+            System.out.printf("\n%s",  fileContents.get(i)); //each line
 
 //            System.out.println();
         }
@@ -53,7 +53,14 @@ public class Contacts {
             }
         }
         //bookmark
-        Files.write(Paths.get("./src/Contacts Contacts-List.txt"), fileContents, StandardOpenOption.APPEND);
+
+//        String directory = "./src/Contacts";
+//
+//        String filename = "Contacts-List.txt";
+//        Path contactPath = Paths.get(directory, filename);
+
+
+        Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents);
         System.out.println("file contents after: \n" + fileContents);
     }
 
