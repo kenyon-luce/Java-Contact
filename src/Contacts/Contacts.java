@@ -40,6 +40,21 @@ public class Contacts {
         }
     }
 
+    public static void deleteFile(Path filePath) throws IOException {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please enter the name you would like to search for");
+        String input = sc.nextLine();
+
+        System.out.println();
+        List<String> fileContents = Files.readAllLines(filePath);
+        for (int i = 0; i < fileContents.size(); i++) {
+            if (fileContents.get(i).contains(input)){
+                fileContents.remove(i);
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         //********SCANNER**********
         Scanner sc = new Scanner(System.in);
@@ -121,7 +136,7 @@ public class Contacts {
                     searchFile(filepathtoList);
                     break;
                 case 4: //DELETE
-
+                    deleteFile(filepathtoList);
                     break;
                 case 5:
                     System.out.println("Exiting...");
