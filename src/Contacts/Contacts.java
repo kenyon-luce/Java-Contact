@@ -1,6 +1,7 @@
 package Contacts;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,19 +41,20 @@ public class Contacts {
         }
     }
 
-    public static void deleteFile(Path filePath) throws IOException {
+    public static void deleteContact(Path filePath) throws IOException {
         Scanner sc = new Scanner(System.in);
-
         System.out.println("Please enter the name you would like to search for");
         String input = sc.nextLine();
-
-        System.out.println();
         List<String> fileContents = Files.readAllLines(filePath);
+        System.out.println("file contents before: \n" + fileContents);
         for (int i = 0; i < fileContents.size(); i++) {
             if (fileContents.get(i).contains(input)){
-                fileContents.remove(i);
+                fileContents.remove(fileContents.get(i));
             }
         }
+        //bookmark
+        Files.write(Paths.get("./src/Contacts Contacts-List.txt"), fileContents, StandardOpenOption.APPEND);
+        System.out.println("file contents after: \n" + fileContents);
     }
 
     public static void main(String[] args) throws IOException {
@@ -76,11 +78,6 @@ public class Contacts {
 
         Path filepathtoList = Paths.get("./src/Contacts/Contacts-List.txt");
 
-
-        //System.out.println("filepathtoList = " + filepathtoList);
-        //System.out.println("Files.exists() = " + Files.exists(filepathtoList));
-//        printFile(filepathtoList);
-
         //Setting up file path
 
         String directory = "./src/Contacts";
@@ -90,8 +87,6 @@ public class Contacts {
         Path dataDirectory = Paths.get(directory);
 
         Path dataFile = Paths.get(directory);
-
-        //System.out.println("dataFile = " + dataFile);
 
         if (Files.notExists(dataDirectory)) {
 
@@ -105,14 +100,6 @@ public class Contacts {
 
         //APPEND to contact list
         Path contactPath = Paths.get(directory, filename);
-
-        //System.out.println("contactPath = " + contactPath);
-
-//        List<String> newContact = Arrays.asList("###-###-####");
-//        //System.out.println("newContact = " + newContact);
-//
-//        Files.write(contactPath, newContact, StandardOpenOption.APPEND);
-
 
         //**********GET INPUT***********
 
@@ -136,7 +123,7 @@ public class Contacts {
                     searchFile(filepathtoList);
                     break;
                 case 4: //DELETE
-                    deleteFile(filepathtoList);
+                    deleteContact(filepathtoList);
                     break;
                 case 5:
                     System.out.println("Exiting...");
