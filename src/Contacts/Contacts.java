@@ -12,51 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Contacts {
-
-
-    //print file method
-    public static void printFile(Path filePath) throws IOException {
-        System.out.println();
-        List<String> fileContents = Files.readAllLines(filePath);
-        for (int i = 0; i < fileContents.size(); i++) {
-            System.out.printf("\n%d %s", i + 1, fileContents.get(i)); //each line
-
-//            System.out.println();
-        }
-    }
-
-    //Search method
-    public static void searchFile(Path filePath) throws IOException {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Please enter the name you would like to search for");
-        String input = sc.nextLine();
-
-        System.out.println();
-        List<String> fileContents = Files.readAllLines(filePath);
-        for (int i = 0; i < fileContents.size(); i++) {
-            if (fileContents.get(i).contains(input)){
-                System.out.printf("%d %s", i + 1, fileContents.get(i));
-            }
-        }
-    }
-
-    public static void deleteContact(Path filePath) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the name you would like to search for");
-        String input = sc.nextLine();
-        List<String> fileContents = Files.readAllLines(filePath);
-        System.out.println("file contents before: \n" + fileContents);
-        for (int i = 0; i < fileContents.size(); i++) {
-            if (fileContents.get(i).contains(input)){
-                fileContents.remove(fileContents.get(i));
-            }
-        }
-        //bookmark
-        Files.write(Paths.get("./src/Contacts Contacts-List.txt"), fileContents, StandardOpenOption.APPEND);
-        System.out.println("file contents after: \n" + fileContents);
-    }
-
     public static void main(String[] args) throws IOException {
         //********SCANNER**********
         Scanner sc = new Scanner(System.in);
@@ -76,7 +31,7 @@ public class Contacts {
         System.out.println();
         //Print file
 
-        Path filepathtoList = Paths.get("./src/Contacts/Contacts-List.txt");
+
 
         //Setting up file path
 
@@ -84,21 +39,21 @@ public class Contacts {
 
         String filename = "Contacts-List.txt";
 
-        Path dataDirectory = Paths.get(directory);
+    //create new filepath if a filepath isn't found
+//        Path dataDirectory = Paths.get(directory);
+//
+//        Path dataFile = Paths.get(directory);
+//
+//        if (Files.notExists(dataDirectory)) {
+//
+//            Files.createDirectories(dataDirectory);
+//        }
+//
+//        if (Files.notExists(dataFile)) {
+//
+//            Files.createFile(dataFile);
+//        }
 
-        Path dataFile = Paths.get(directory);
-
-        if (Files.notExists(dataDirectory)) {
-
-            Files.createDirectories(dataDirectory);
-        }
-
-        if (Files.notExists(dataFile)) {
-
-            Files.createFile(dataFile);
-        }
-
-        //APPEND to contact list
         Path contactPath = Paths.get(directory, filename);
 
         //**********GET INPUT***********
@@ -109,7 +64,7 @@ public class Contacts {
             input = inputScanner.nextInt();
             switch (input) { //DISPLAY
                 case 1:
-                    printFile(filepathtoList);
+                    printFile(contactPath);
                     break;
                 case 2: //ADD
                     System.out.println("[Name Number]");
@@ -120,16 +75,58 @@ public class Contacts {
                     Files.write(contactPath, newContact, StandardOpenOption.APPEND);
                     break;
                 case 3: //SEARCH
-                    searchFile(filepathtoList);
+                    searchFile(contactPath);
                     break;
                 case 4: //DELETE
-                    deleteContact(filepathtoList);
+                    deleteContact(contactPath);
                     break;
                 case 5:
                     System.out.println("Exiting...");
                     break;
             }
         } while (input != 5);
+    }
 
+    //print file method
+    public static void printFile(Path filePath) throws IOException {
+        System.out.println();
+        List<String> fileContents = Files.readAllLines(filePath);
+        for (int i = 0; i < fileContents.size(); i++) {
+            System.out.println(fileContents.get(i)); //each line
+
+//            System.out.println();
+        }
+    }
+
+    //Search method
+    public static void searchFile(Path filePath) throws IOException {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please enter the name you would like to search for");
+        String input = sc.nextLine();
+
+        System.out.println();
+        List<String> fileContents = Files.readAllLines(filePath);
+        for (int i = 0; i < fileContents.size(); i++) {
+            if (fileContents.get(i).contains(input)){
+                System.out.println(fileContents.get(i));
+            }
+        }
+    }
+
+    public static void deleteContact(Path filePath) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the name you would like to search for");
+        String input = sc.nextLine();
+        List<String> fileContents = Files.readAllLines(filePath);
+        System.out.println("file contents before: \n" + fileContents);
+        for (int i = 0; i < fileContents.size(); i++) {
+            if (fileContents.get(i).contains(input)){
+                fileContents.remove(fileContents.get(i));
+            }
+        }
+        //bookmark
+        Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents, StandardOpenOption.APPEND);
+        System.out.println("file contents after: \n" + fileContents);
     }
 }
