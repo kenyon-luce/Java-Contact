@@ -126,7 +126,7 @@ public class Contacts {
             }
         }
         //bookmark
-        Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents, StandardOpenOption.APPEND);
+        Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents);
         System.out.println("file contents after: \n" + fileContents);
     }
 }
