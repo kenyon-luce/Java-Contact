@@ -75,7 +75,7 @@ public class Contacts {
                     Files.write(contactPath, newContact, StandardOpenOption.APPEND);
                     break;
                 case 3: //SEARCH
-                    searchFile(contactPath);
+                    searchContact(contactPath);
                     break;
                 case 4: //DELETE
                     deleteContact(contactPath);
@@ -92,14 +92,14 @@ public class Contacts {
         System.out.println();
         List<String> fileContents = Files.readAllLines(filePath);
         for (int i = 0; i < fileContents.size(); i++) {
-            System.out.println(fileContents.get(i)); //each line
+            System.out.printf("\n%s",  fileContents.get(i)); //each line
 
 //            System.out.println();
         }
     }
 
     //Search method
-    public static void searchFile(Path filePath) throws IOException {
+    public static void searchContact(Path filePath) throws IOException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Please enter the name you would like to search for");
