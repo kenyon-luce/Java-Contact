@@ -12,6 +12,61 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Contacts {
+<<<<<<< HEAD
+=======
+
+
+    //print file method
+    public static void printFile(Path filePath) throws IOException {
+        System.out.println();
+        List<String> fileContents = Files.readAllLines(filePath);
+        for (int i = 0; i < fileContents.size(); i++) {
+            System.out.printf("\n%s",  fileContents.get(i)); //each line
+
+//            System.out.println();
+        }
+    }
+
+    //Search method
+    public static void searchFile(Path filePath) throws IOException {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please enter the name you would like to search for");
+        String input = sc.nextLine();
+
+        System.out.println();
+        List<String> fileContents = Files.readAllLines(filePath);
+        for (int i = 0; i < fileContents.size(); i++) {
+            if (fileContents.get(i).contains(input)){
+                System.out.printf("%d %s", i + 1, fileContents.get(i));
+            }
+        }
+    }
+
+    public static void deleteContact(Path filePath) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the name you would like to search for");
+        String input = sc.nextLine();
+        List<String> fileContents = Files.readAllLines(filePath);
+        System.out.println("file contents before: \n" + fileContents);
+        for (int i = 0; i < fileContents.size(); i++) {
+            if (fileContents.get(i).contains(input)){
+                fileContents.remove(fileContents.get(i));
+            }
+        }
+        //bookmark
+
+//        String directory = "./src/Contacts";
+//
+//        String filename = "Contacts-List.txt";
+//        Path contactPath = Paths.get(directory, filename);
+
+
+        Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents);
+        System.out.println("file contents after: \n" + fileContents);
+    }
+
+>>>>>>> 6a352e6978a8ec8ad2b72f723a86a46282a284b9
     public static void main(String[] args) throws IOException {
         //********SCANNER**********
         Scanner sc = new Scanner(System.in);
