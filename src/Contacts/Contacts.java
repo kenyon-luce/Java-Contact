@@ -1,31 +1,27 @@
 package Contacts;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Contacts {
 
 
-    //print file method
+    //PRINT ALL method
     public static void printFile(Path filePath) throws IOException {
         System.out.println();
         List<String> fileContents = Files.readAllLines(filePath);
         for (int i = 0; i < fileContents.size(); i++) {
             System.out.printf("\n%s",  fileContents.get(i)); //each line
-
-//            System.out.println();
         }
     }
-
-    //Search method
+    //SEARCH method
     public static void searchFile(Path filePath) throws IOException {
         Scanner sc = new Scanner(System.in);
 
@@ -41,6 +37,7 @@ public class Contacts {
         }
     }
 
+    //DELETE method
     public static void deleteContact(Path filePath) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter the name you would like to search for");
@@ -52,13 +49,6 @@ public class Contacts {
                 fileContents.remove(fileContents.get(i));
             }
         }
-        //bookmark
-
-//        String directory = "./src/Contacts";
-//
-//        String filename = "Contacts-List.txt";
-//        Path contactPath = Paths.get(directory, filename);
-
 
         Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents);
         System.out.println("file contents after: \n" + fileContents);
@@ -79,64 +69,50 @@ public class Contacts {
                         "\n" +
                         "Enter an option (1, 2, 3, 4 or 5): "
         );
-
         System.out.println();
-        //Print file
-
-        Path filepathtoList = Paths.get("./src/Contacts/Contacts-List.txt");
 
         //Setting up file path
 
-        String directory = "./src/Contacts";
+        String path = "./src/Contacts/Contacts-List.txt";
 
-        String filename = "Contacts-List.txt";
+//        String filename = "Contacts-List.txt";
 
-        Path dataDirectory = Paths.get(directory);
+//        Path dataPath = Paths.get(directory);
 
-        Path dataFile = Paths.get(directory);
+        Path contactPath = Paths.get(path);
 
-        if (Files.notExists(dataDirectory)) {
-
-            Files.createDirectories(dataDirectory);
+        //CREATE filepath if path doesn't already exist
+        if (Files.notExists(contactPath)) {
+            Files.createDirectories(contactPath);
         }
 
-        if (Files.notExists(dataFile)) {
-
-            Files.createFile(dataFile);
-        }
-
-        //APPEND to contact list
-        Path contactPath = Paths.get(directory, filename);
+//        if (Files.notExists(dataFile)) {
+//
+//            Files.createFile(dataFile);
+//        }
+//
+//        Path contactPath = Paths.get(path);
 
         //**********GET INPUT***********
-
         Scanner inputScanner = new Scanner(System.in);
         int input;
         do {
             input = inputScanner.nextInt();
             switch (input) { //DISPLAY
-                case 1:
-                    printFile(filepathtoList);
-                    break;
-                case 2: //ADD
+                case 1 -> printFile(contactPath);
+                case 2 -> { //ADD
                     System.out.println("[Name Number]");
                     String name = sc.next();
                     String newNumber = sc.next();
-
-                    List<String> newContact = Arrays.asList(name + " | " + newNumber);
+                    List<String> newContact = Collections.singletonList(name + " | " + newNumber);
                     Files.write(contactPath, newContact, StandardOpenOption.APPEND);
-                    break;
-                case 3: //SEARCH
-                    searchFile(filepathtoList);
-                    break;
-                case 4: //DELETE
-                    deleteContact(filepathtoList);
-                    break;
-                case 5:
-                    System.out.println("Exiting...");
-                    break;
+                }
+                case 3 -> //SEARCH
+                        searchFile(contactPath);
+                case 4 -> //DELETE
+                        deleteContact(contactPath);
+                case 5 -> System.out.println("Exiting...");
             }
         } while (input != 5);
-
     }
 }
