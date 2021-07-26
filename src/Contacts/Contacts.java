@@ -2,6 +2,7 @@ package Contacts;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -71,27 +72,18 @@ public class Contacts {
         );
         System.out.println();
 
-        //Setting up file path
 
         String path = "./src/Contacts/Contacts-List.txt";
-
-//        String filename = "Contacts-List.txt";
-
-//        Path dataPath = Paths.get(directory);
-
         Path contactPath = Paths.get(path);
 
+        File file = new File(String.valueOf(contactPath));
         //CREATE filepath if path doesn't already exist
-        if (Files.notExists(contactPath)) {
-            Files.createDirectories(contactPath);
+        if (!file.exists()) {
+            System.out.println("file doesnt exist");
+            file.mkdir();
+        } else {
+            System.out.println("file already exists");
         }
-
-//        if (Files.notExists(dataFile)) {
-//
-//            Files.createFile(dataFile);
-//        }
-//
-//        Path contactPath = Paths.get(path);
 
         //**********GET INPUT***********
         Scanner inputScanner = new Scanner(System.in);
