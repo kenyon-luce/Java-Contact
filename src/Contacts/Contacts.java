@@ -13,10 +13,13 @@ public class Contacts {
 
     //PRINT ALL method
     public static void printContacts(Path filePath) throws IOException {
+//        System.out.printf(("%-10s | %-13s", "Name", "Number");
         System.out.println();
+//        System.out.println("___Name___|__Number__");
+        System.out.printf("%-10s | %-13s\n", new String("NAME"), new String ("NUMBER"));
         List<String> fileContents = Files.readAllLines(filePath);
-        for (int i = 0; i < fileContents.size(); i++) {
-            System.out.printf("\n%s",  fileContents.get(i)); //each line
+        for (String fileContent : fileContents) {
+            System.out.printf("%s\n", fileContent); //breaks each line to display each number in a column
         }
     }
     //SEARCH method
@@ -34,14 +37,17 @@ public class Contacts {
             }
         }
     }
-
+    //ADD contact
     public static void addContact (Path filepath) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("[Name Number]");
         String name = sc.next();
         String newNumber = sc.next();
-        List<String> newContact = Collections.singletonList(name + " | " + newNumber);
+        String contact = String.format("%-10s | %-13s", name, newNumber);
+        List<String> newContact = Collections.singletonList(contact);
         Files.write(filepath, newContact, StandardOpenOption.APPEND);
+
+        System.out.println(contact + "has been added contacts");
     }
 
     //DELETE method
@@ -50,21 +56,19 @@ public class Contacts {
         System.out.println("Please enter the name you would like to search for");
         String input = sc.nextLine();
         List<String> fileContents = Files.readAllLines(filePath);
-        System.out.println("file contents before: \n" + fileContents);
+//        System.out.println("file contents before: \n" + fileContents);
         for (int i = 0; i < fileContents.size(); i++) {
             if (fileContents.get(i).contains(input)){
                 fileContents.remove(fileContents.get(i));
+                System.out.println(input + "has been deleted from contacts");
             }
         }
 
         Files.write(Paths.get("./src/Contacts/Contacts-List.txt"), fileContents);
-        System.out.println("file contents after: \n" + fileContents);
+//        System.out.println("file contents after: \n" + fileContents);
     }
 
     public static void main(String[] args) throws IOException {
-        //********SCANNER**********
-        Scanner sc = new Scanner(System.in);
-
         System.out.println(
                 "What would you like to do?\n" +
                         "\n" +
@@ -76,7 +80,6 @@ public class Contacts {
                         "\n" +
                         "Enter an option (1, 2, 3, 4 or 5): "
         );
-        System.out.println();
 
         String path = "./src/Contacts/Contacts-List.txt";
         Path contactPath = Paths.get(path);
@@ -89,10 +92,10 @@ public class Contacts {
         }
 
         //**********GET INPUT***********
-        Scanner inputScanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int input;
         do {
-            input = inputScanner.nextInt();
+            input = sc.nextInt();
             switch (input) {
                 case 1 -> //DISPLAY
                         printContacts(contactPath);
@@ -102,7 +105,8 @@ public class Contacts {
                         searchContact(contactPath);
                 case 4 -> //DELETE
                         deleteContact(contactPath);
-                case 5 -> System.out.println("Exiting...");
+                case 5 -> //EXIT
+                        System.out.println("Exiting...");
             }
         } while (input != 5);
     }
