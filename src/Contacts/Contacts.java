@@ -5,10 +5,7 @@ import org.w3c.dom.ls.LSOutput;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.util.*;
 
 public class Contacts {
@@ -72,17 +69,14 @@ public class Contacts {
         );
         System.out.println();
 
-
         String path = "./src/Contacts/Contacts-List.txt";
         Path contactPath = Paths.get(path);
 
+        Files.createDirectories(contactPath.getParent());
         File file = new File(String.valueOf(contactPath));
-        //CREATE filepath if path doesn't already exist
+
         if (!file.exists()) {
-            System.out.println("file doesnt exist");
-            file.mkdir();
-        } else {
-            System.out.println("file already exists");
+            Files.createFile(contactPath);
         }
 
         //**********GET INPUT***********
