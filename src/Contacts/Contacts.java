@@ -4,19 +4,15 @@ import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.*;
 import java.util.*;
 
 public class Contacts {
 
-
     //PRINT ALL method
     public static void printContacts(Path filePath) throws IOException {
-//        System.out.printf(("%-10s | %-13s", "Name", "Number");
         System.out.println();
-//        System.out.println("___Name___|__Number__");
-        System.out.printf("%-10s | %-13s\n", new String("NAME"), new String ("NUMBER"));
+        System.out.printf("%-10s | %-13s\n", "NAME","NUMBER");
         List<String> fileContents = Files.readAllLines(filePath);
         for (String fileContent : fileContents) {
             System.out.printf("%s\n", fileContent); //breaks each line to display each number in a column
@@ -42,12 +38,22 @@ public class Contacts {
         Scanner sc = new Scanner(System.in);
         System.out.println("[Name Number]");
         String name = sc.next();
-        String newNumber = sc.next();
-        String contact = String.format("%-10s | %-13s", name, newNumber);
+        int newNumber = sc.nextInt();
+        String formatNumber = Integer.toString(newNumber);
+
+        String formattedNumber = null;
+        if(formatNumber.length() == 10){
+            String areaCode = formatNumber.substring(0, 3);
+            String firstHalf = formatNumber.substring(3, 6);
+            String secondHalf = formatNumber.substring(6, 10);
+            formattedNumber = String.format("(%s) %s-%s", areaCode,firstHalf,secondHalf);
+        }
+
+        String contact = String.format("%-30s | %-30s ", name, formattedNumber);
         List<String> newContact = Collections.singletonList(contact);
         Files.write(filepath, newContact, StandardOpenOption.APPEND);
 
-        System.out.println(contact + "has been added contacts");
+        System.out.println(name + "has been added contacts");
     }
 
     //DELETE method
