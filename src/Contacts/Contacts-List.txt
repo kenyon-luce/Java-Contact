@@ -1,1 +1,13 @@
 Kenyon     | 0000000      
+Kenyon     | 000           hello
+Keenyon    | 9999         
+kl         | 123456789    
+ooo        | 999999999    
+hey        | 123456789    
+hello      | 123456789    
+hey        | 123456789    
+hello      | 123456789    
+hey        | (123) 456-789
+formatNumber | (123) 456-789
+formatNumberTwo | (123) 456-7890
+newNumber                      | (123) 456-7890                 
