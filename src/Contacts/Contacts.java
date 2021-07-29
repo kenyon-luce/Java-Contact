@@ -41,36 +41,40 @@ public class Contacts {
         System.out.print("Name: ");
         String name = sc.next();
 
+        System.out.print("Number: ");
+        //TODO: Exceptions to catch -> InputMismatch, StringIndexOutOfBounds. If caught loop function
+        boolean pass = true;
+//
+//        try{
+//            number = sc.nextInt();
+//            try{
+//                String numberString = Integer.toString(number);
+//
+//                String areaCode = numberString.substring(0, 3);
+//                String firstHalf = numberString.substring(3, 6);
+//                String secondHalf = numberString.substring(6, 10);
+//
+//                String formatNumber = String.format("(%s) %s-%s", areaCode, firstHalf, secondHalf);
+//                String contact = String.format("%-20s | %-20s ", name, formatNumber);
+//                List<String> newContact = Collections.singletonList(contact);
+//                Files.write(filepath, newContact, StandardOpenOption.APPEND);
+//                System.out.println(name + "has been added contacts");
+//
+//            } catch (StringIndexOutOfBoundsException e) {
+//                System.out.println("Number must be 9 digits long");
+//            }
+//        } catch(InputMismatchException e){
+//            System.out.println("Please enter a valid number");
+//        }
 
-        boolean pass = false;
-        do{
-            System.out.print("Number: ");
-            //TODO: Exceptions to catch -> InputMismatch, StringIndexOutOfBounds. If caught loop function
-            int number;
-            String formatNumber;
+        do {
+            String number = sc.next();
 
-            try{
-                number = sc.nextInt();
-                try{
-                    String numberString = Integer.toString(number);
-
-                    String areaCode = numberString.substring(0, 3);
-                    String firstHalf = numberString.substring(3, 6);
-                    String secondHalf = numberString.substring(6, 10);
-
-                    formatNumber = String.format("(%s) %s-%s", areaCode, firstHalf, secondHalf);
-                    pass = true;
-
-                    String contact = String.format("%-20s | %-20s ", name, formatNumber);
-
-                    List<String> newContact = Collections.singletonList(contact);
-                    Files.write(filepath, newContact, StandardOpenOption.APPEND);
-                    System.out.println(name + "has been added contacts");
-                } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("Number must be 9 digits long");
-                }
-            } catch(InputMismatchException e){
+            if(number.length() == 10){
+                System.out.println(pass);
+            } else {
                 System.out.println("Please enter a valid number");
+                pass = false;
             }
         } while (!pass);
     }
