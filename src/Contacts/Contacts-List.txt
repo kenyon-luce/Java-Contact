@@ -13,3 +13,5 @@ formatNumberTwo | (123) 456-7890
 newNumber                      | (123) 456-7890                 
 Kenyon                         | null                           
 Kenyon               | formatNumber         
+kenyon               | (123) 456-7890       
+kenyon               | (123) 456-7890       
