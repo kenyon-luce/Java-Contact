@@ -69,11 +69,12 @@ public class Contacts {
 
         do {
             String number = sc.next();
+            String numbersOnly= number.replaceAll("[^0-9]", ""); //removes anything that's not a number, then checking to see if its length passes
 
-            if(number.length() == 10){
+            if(numbersOnly.length() == 10){
                 System.out.println(pass);
             } else {
-                System.out.println("Please enter a valid number");
+                System.out.println("Please enter a valid number (must be 9 digits long)");
                 pass = false;
             }
         } while (!pass);
