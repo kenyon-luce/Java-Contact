@@ -41,38 +41,25 @@ public class Contacts {
         System.out.print("Name: ");
         String name = sc.next();
 
-        System.out.print("Number: ");
-        //TODO: Exceptions to catch -> InputMismatch, StringIndexOutOfBounds. If caught loop function
         boolean pass = true;
-//
-//        try{
-//            number = sc.nextInt();
-//            try{
-//                String numberString = Integer.toString(number);
-//
-//                String areaCode = numberString.substring(0, 3);
-//                String firstHalf = numberString.substring(3, 6);
-//                String secondHalf = numberString.substring(6, 10);
-//
-//                String formatNumber = String.format("(%s) %s-%s", areaCode, firstHalf, secondHalf);
-//                String contact = String.format("%-20s | %-20s ", name, formatNumber);
-//                List<String> newContact = Collections.singletonList(contact);
-//                Files.write(filepath, newContact, StandardOpenOption.APPEND);
-//                System.out.println(name + "has been added contacts");
-//
-//            } catch (StringIndexOutOfBoundsException e) {
-//                System.out.println("Number must be 9 digits long");
-//            }
-//        } catch(InputMismatchException e){
-//            System.out.println("Please enter a valid number");
-//        }
-
         do {
-            String number = sc.next();
-            String numbersOnly= number.replaceAll("[^0-9]", ""); //removes anything that's not a number, then checking to see if its length passes
+            System.out.print("Number: ");
+            String number = sc.next(); //no need to worry about InputMismatchException when we can just remove anything that isn't a number, and will still be a string that we can splice to format
+            number = number.replaceAll("[^0-9]", "");
 
-            if(numbersOnly.length() == 10){
-                System.out.println(pass);
+            if(number.length() == 10){
+
+                String areaCode = number.substring(0, 3);
+                String firstHalf = number.substring(3, 6);
+                String secondHalf = number.substring(6, 10);
+
+                String formatNumber = String.format("(%s) %s-%s", areaCode, firstHalf, secondHalf);
+                String contact = String.format("%-15s | %-15s ", name, formatNumber);
+
+                List<String> newContact = Collections.singletonList(contact);
+                Files.write(filepath, newContact, StandardOpenOption.APPEND);
+                System.out.println(name + " has been added to contacts");
+
             } else {
                 System.out.println("Please enter a valid number (must be 9 digits long)");
                 pass = false;
