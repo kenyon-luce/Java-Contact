@@ -38,8 +38,21 @@ public class Contacts {
     //ADD contact
     public static void addContact(Path filepath) throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Name: ");
-        String name = sc.next();
+        System.out.print("Full Name: ");
+        String name = sc.nextLine();
+
+        String[] firstLast = name.split(" ");
+        StringBuilder fullNameFormat = new StringBuilder();
+
+        for (String s : firstLast) {
+
+            String[] splitName = s.split("");
+            String nameCapitalized = splitName[0].toUpperCase() + s.substring(1);
+
+            fullNameFormat.append(nameCapitalized);
+        }
+
+        System.out.println(fullNameFormat + " ");
 
         boolean pass = true;
         do {
