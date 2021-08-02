@@ -45,11 +45,15 @@ public class Contacts {
         StringBuilder fullNameFormat = new StringBuilder();
 
         for (String s : firstLast) {
+            if(s.matches(".*\\d.*")){
+                System.out.print("removing numbers --> ");
+                s = s.replaceAll("[0-9]", "");
+            }
 
             String[] splitName = s.split("");
-            String nameCapitalized = splitName[0].toUpperCase() + s.substring(1);
+            String firstLetter = splitName[0];
 
-            fullNameFormat.append(nameCapitalized);
+            fullNameFormat.append(s.replace(firstLetter, firstLetter.toUpperCase())).append(" ");
         }
 
         System.out.println(fullNameFormat + " ");
