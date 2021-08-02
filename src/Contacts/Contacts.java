@@ -47,9 +47,9 @@ public class Contacts {
         for (String s : firstLast) {
 
             String[] splitName = s.split("");
-            String nameCapitalized = splitName[0].toUpperCase() + s.substring(1);
+            String firstLetter = splitName[0];
 
-            fullNameFormat.append(nameCapitalized);
+            fullNameFormat.append(s.replace(firstLetter, firstLetter.toUpperCase())).append(" ");
         }
 
         System.out.println(fullNameFormat + " ");
