@@ -11,8 +11,8 @@ public class Contacts {
 
     //PRINT ALL method
     public static void printContacts(Path filePath) throws IOException {
-        System.out.println();
-        System.out.printf("%-10s | %-13s\n", "NAME", "NUMBER");
+//        System.out.println();
+//        System.out.printf("%-10s | %-13s\n", "NAME", "NUMBER");
         List<String> fileContents = Files.readAllLines(filePath);
         for (String fileContent : fileContents) {
             System.out.printf("%s\n", fileContent); //breaks each line to display each number in a column
@@ -42,7 +42,7 @@ public class Contacts {
         String name = sc.nextLine();
 
         String[] firstLast = name.split(" ");
-        StringBuilder fullNameFormat = new StringBuilder();
+        StringBuilder formatFullName = new StringBuilder();
 
         for (String s : firstLast) {
             if(s.matches(".*\\d.*")){
@@ -53,10 +53,10 @@ public class Contacts {
             String[] splitName = s.split("");
             String firstLetter = splitName[0];
 
-            fullNameFormat.append(s.replace(firstLetter, firstLetter.toUpperCase())).append(" ");
+            formatFullName.append(s.replace(firstLetter, firstLetter.toUpperCase())).append(" ");
         }
 
-        System.out.println(fullNameFormat + " ");
+        System.out.println(formatFullName);
 
         boolean pass = true;
         do {
@@ -70,12 +70,13 @@ public class Contacts {
                 String firstHalf = number.substring(3, 6);
                 String secondHalf = number.substring(6, 10);
 
-                String formatNumber = String.format("(%s) %s-%s", areaCode, firstHalf, secondHalf);
-                String contact = String.format("%-15s | %-15s ", name, formatNumber);
+                String formatNumber = String.format("(%s)%s-%s", areaCode, firstHalf, secondHalf);
+                String contact = String.format("%-15s | %-15s ", formatFullName, formatNumber);
 
                 List<String> newContact = Collections.singletonList(contact);
                 Files.write(filepath, newContact, StandardOpenOption.APPEND);
-                System.out.println(name + " has been added to contacts");
+                System.out.println(formatNumber);
+                System.out.println(formatFullName + " has been added to contacts");
 
             } else {
                 System.out.println("Please enter a valid number (must be 9 digits long)");
@@ -123,6 +124,9 @@ public class Contacts {
 
         if (!file.exists()) {
             Files.createFile(contactPath);
+            String columns = String.format("%-15s | %-15s", "NAME", "NUMBER");
+            List<String> create = Collections.singletonList(columns);
+            Files.write(contactPath, create, StandardOpenOption.APPEND);
         }
 
         //**********GET INPUT***********
